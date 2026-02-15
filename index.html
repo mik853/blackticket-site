@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BlackTicket Access Protocol</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #000;
+    color: #fff;
+    text-align: center;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 60px 20px;
+}
+
+h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.gold {
+    color: #d4af37;
+}
+
+.card {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    padding: 40px;
+    border-radius: 16px;
+    margin-top: 40px;
+}
+
+.button {
+    display: inline-block;
+    margin: 10px;
+    padding: 14px 28px;
+    border-radius: 8px;
+    background: #d4af37;
+    color: #000;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+input {
+    width: 80%;
+    padding: 14px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 20px;
+}
+
+.submit {
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.footer {
+    margin-top: 60px;
+    color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>BlackTicket <span class="gold">Access</span></h1>
+<p>Complete the steps to secure your place</p>
+
+<div class="card">
+
+<h2>Step 1</h2>
+<a class="button" href="https://x.com/blackticket_eth" target="_blank">Follow on Twitter</a>
+
+<h2>Step 2</h2>
+<a class="button" href="https://x.com/blackticket_eth" target="_blank">Retweet Announcement</a>
+
+<h2>Step 3</h2>
+<p>Submit your wallet</p>
+
+<input id="wallet" placeholder="Paste wallet address">
+
+<br>
+
+<button class="button submit" onclick="submitWallet()">Submit</button>
+
+<p id="status"></p>
+
+</div>
+
+<div class="footer">
+BlackTicket Protocol ©
+</div>
+
+</div>
+
+<script>
+function submitWallet() {
+    const wallet = document.getElementById("wallet").value;
+
+    if(wallet.length < 10) {
+        document.getElementById("status").innerText = "Enter valid wallet";
+        return;
+    }
+
+    document.getElementById("status").innerText = "You're on the list ✅";
+}
+</script>
+
+</body>
+</html>
