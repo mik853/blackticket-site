@@ -197,45 +197,55 @@ BlackTicket Protocol ©
 
 <script>
 
-let completed=0;
+let completed = 0;
+
+function updateProgress(){
+document.getElementById("progress").innerText = completed;
+}
 
 function completeTask(){
 completed++;
-document.getElementById("progress").innerText=completed;
+updateProgress();
 }
 
 function verifyComment(){
-const link=document.getElementById("commentLink").value;
-if(link.length<10){
-document.getElementById("verifyStatus").innerText="Paste valid link";
+const link = document.getElementById("commentLink").value;
+
+if(!link || link.length < 10){
+document.getElementById("verifyStatus").innerText = "Paste valid link";
 return;
 }
-document.getElementById("verifyStatus").innerText="Verified ✅";
+
+document.getElementById("verifyStatus").innerText = "Verified ✅";
 completed++;
-document.getElementById("progress").innerText=completed;
+updateProgress();
 }
 
 function submitWallet(){
-const wallet=document.getElementById("wallet").value;
-if(wallet.length<10){
+const wallet = document.getElementById("wallet").value;
+
+if(!wallet || wallet.length < 10){
 alert("Enter valid wallet");
 return;
 }
-document.getElementById("modal").style.display="flex";
+
+document.getElementById("modal").style.display = "flex";
 }
 
-const launchDate=new Date();
-launchDate.setDate(launchDate.getDate()+7);const countdown=document.getElementById("countdown");
+const launchDate = new Date();
+launchDate.setDate(launchDate.getDate() + 7);
+
+const countdown = document.getElementById("countdown");
 
 setInterval(()=>{
-const now=new Date();
-const diff=launchDate-now;
+const now = new Date();
+const diff = launchDate - now;
 
-const days=Math.floor(diff/(1000*60*60*24));
-const hours=Math.floor((diff/(1000*60*60))%24);
-const mins=Math.floor((diff/1000/60)%60);
+const days = Math.floor(diff/(1000*60*60*24));
+const hours = Math.floor((diff/(1000*60*60))%24);
+const mins = Math.floor((diff/1000/60)%60);
 
-countdown.innerHTML=Mint in ${days}d ${hours}h ${mins}m;
+countdown.innerHTML = Mint in ${days}d ${hours}h ${mins}m;
 },1000);
 
 </script>
