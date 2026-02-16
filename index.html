@@ -128,7 +128,19 @@ color:#777;
 <a class="button" href="https://x.com/blackticket_eth" target="_blank">Follow Twitter</a>
 
 <a class="button" href="https://x.com/blackticket_eth" target="_blank">Retweet Announcement</a>
+<h3>Step 3 — Comment on Tweet</h3>
 
+<a class="button" href="https://x.com/blackticket_eth" target="_blank">Go to Tweet</a>
+
+<br>
+
+<input id="commentLink" placeholder="Paste link to your comment">
+
+<br>
+
+<button class="button" onclick="verifyComment()">Verify Comment</button>
+
+<p id="verifyStatus" style="color:#d4af37;"></p>
 <p>Submit your wallet</p>
 
 <input id="wallet" placeholder="Paste wallet address">
@@ -159,7 +171,16 @@ return;
 
 document.getElementById("success").style.display="block";
 }
+function verifyComment() {
+const link=document.getElementById("commentLink").value;
 
+if(link.length<10){
+document.getElementById("verifyStatus").innerText="Paste valid tweet link";
+return;
+}
+
+document.getElementById("verifyStatus").innerText="Comment verified ✅";
+}
 const launchDate=new Date();
 launchDate.setDate(launchDate.getDate()+7);
 
