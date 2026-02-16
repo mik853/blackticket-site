@@ -5,116 +5,177 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BlackTicket Access Protocol</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+
 body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: #000;
-    color: #fff;
-    text-align: center;
+margin:0;
+background:#000;
+color:#fff;
+font-family:'Inter',sans-serif;
+overflow-x:hidden;
 }
 
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 60px 20px;
+.hero {
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:radial-gradient(circle at center,#111 0%,#000 70%);
 }
 
 h1 {
-    font-size: 48px;
-    margin-bottom: 10px;
+font-family:'Playfair Display',serif;
+font-size:56px;
+margin:0;
 }
 
 .gold {
-    color: #d4af37;
+background:linear-gradient(90deg,#d4af37,#ffd700);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+.ticket {
+margin-top:30px;
+width:280px;
+border-radius:16px;
+box-shadow:0 0 40px rgba(212,175,55,0.4);
+animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+0%,100% {transform:translateY(0);}
+50% {transform:translateY(-15px);}
+}
+
+.section {
+padding:80px 20px;
+text-align:center;
 }
 
 .card {
-    background: #0a0a0a;
-    border: 1px solid #222;
-    padding: 40px;
-    border-radius: 16px;
-    margin-top: 40px;
+background:#0a0a0a;
+border:1px solid #222;
+border-radius:16px;
+padding:40px;
+max-width:600px;
+margin:auto;
 }
 
 .button {
-    display: inline-block;
-    margin: 10px;
-    padding: 14px 28px;
-    border-radius: 8px;
-    background: #d4af37;
-    color: #000;
-    text-decoration: none;
-    font-weight: 600;
+background:linear-gradient(90deg,#d4af37,#ffd700);
+color:#000;
+padding:14px 28px;
+border-radius:8px;
+text-decoration:none;
+font-weight:600;
+display:inline-block;
+margin:10px;
 }
 
 input {
-    width: 80%;
-    padding: 14px;
-    border-radius: 8px;
-    border: none;
-    margin-top: 20px;
+width:80%;
+padding:14px;
+border-radius:8px;
+border:none;
+margin-top:20px;
 }
 
-.submit {
-    margin-top: 20px;
-    cursor: pointer;
+#countdown {
+font-size:24px;
+margin-top:10px;
+color:#d4af37;
 }
 
-.footer {
-    margin-top: 60px;
-    color: #777;
+.success {
+display:none;
+font-size:22px;
+color:#d4af37;
+margin-top:20px;
 }
+
+footer {
+padding:40px;
+color:#777;
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="hero">
 
 <h1>BlackTicket <span class="gold">Access</span></h1>
-<p>Complete the steps to secure your place</p>
+<p>Exclusive entry protocol</p>
+
+<img class="ticket" src="https://i.imgur.com/4M7IWwP.png">
+
+<div id="countdown"></div>
+
+</div>
+
+<div class="section">
 
 <div class="card">
 
-<h2>Step 1</h2>
-<a class="button" href="https://x.com/blackticket_eth" target="_blank">Follow on Twitter</a>
+<h2>Complete Tasks</h2>
 
-<h2>Step 2</h2>
+<a class="button" href="https://x.com/blackticket_eth" target="_blank">Follow Twitter</a>
+
 <a class="button" href="https://x.com/blackticket_eth" target="_blank">Retweet Announcement</a>
 
-<h2>Step 3</h2>
 <p>Submit your wallet</p>
 
 <input id="wallet" placeholder="Paste wallet address">
 
 <br>
 
-<button class="button submit" onclick="submitWallet()">Submit</button>
+<button class="button" onclick="submitWallet()">Submit</button>
 
-<p id="status"></p>
+<div class="success" id="success">You're on the list ✅</div>
 
 </div>
 
-<div class="footer">
+</div>
+
+<footer>
 BlackTicket Protocol ©
-</div>
-
-</div>
+</footer>
 
 <script>
+
 function submitWallet() {
-    const wallet = document.getElementById("wallet").value;
+const wallet=document.getElementById("wallet").value;
 
-    if(wallet.length < 10) {
-        document.getElementById("status").innerText = "Enter valid wallet";
-        return;
-    }
-
-    document.getElementById("status").innerText = "You're on the list ✅";
+if(wallet.length<10){
+alert("Enter valid wallet");
+return;
 }
+
+document.getElementById("success").style.display="block";
+}
+
+const launchDate=new Date();
+launchDate.setDate(launchDate.getDate()+7);
+
+const countdown=document.getElementById("countdown");
+
+setInterval(()=>{
+const now=new Date();
+const diff=launchDate-now;
+
+const days=Math.floor(diff/(1000*60*60*24));
+const hours=Math.floor((diff/(1000*60*60))%24);
+const mins=Math.floor((diff/1000/60)%60);
+
+countdown.innerHTML=Mint in ${days}d ${hours}h ${mins}m;
+},1000);
+
 </script>
 
 </body>
