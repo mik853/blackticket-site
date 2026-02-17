@@ -10,39 +10,52 @@
 body {
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-  background: radial-gradient(circle at 30% 20%, #0b0b0b, #040404 70%);
+  background:#050505;
   color:#e5e7eb;
   overflow-x:hidden;
 }
 
-/* particles */
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  background-image:radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
-  background-size:40px 40px;
-  animation:moveParticles 60s linear infinite;
-  pointer-events:none;
-}
-
-@keyframes moveParticles{
-  from{transform:translateY(0)}
-  to{transform:translateY(-200px)}
-}
-
-/* hero */
-.hero{
+/* animated ticket glow background */
+.hero {
+  position:relative;
+  padding:100px 20px 60px;
   text-align:center;
-  padding:80px 20px 40px;
+  overflow:hidden;
 }
 
-.hero h1{
+.ticket-bg {
+  position:absolute;
+  width:600px;
+  height:280px;
+  background:linear-gradient(135deg,#0a0a0a,#111);
+  border-radius:16px;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) rotate(-8deg);
+  box-shadow:0 0 120px rgba(212,175,55,0.15);
+  animation:float 6s ease-in-out infinite alternate;
+}
+
+.ticket-bg::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:16px;
+  border:1px solid rgba(212,175,55,0.25);
+}
+
+@keyframes float {
+  from { transform:translate(-50%,-50%) rotate(-8deg) }
+  to { transform:translate(-50%,-48%) rotate(-6deg) }
+}
+
+.hero h1 {
+  position:relative;
   font-size:42px;
   font-weight:600;
 }
 
-.gold{
+.gold {
   width:60px;
   height:2px;
   margin:14px auto;
@@ -50,48 +63,48 @@ body::after{
 }
 
 /* card */
-.card{
+.card {
   background:rgba(255,255,255,0.03);
-  backdrop-filter:blur(16px);
-  border-radius:18px;
-  padding:32px;
-  max-width:480px;
+  border-radius:16px;
+  padding:28px;
+  max-width:460px;
   margin:30px auto;
-  box-shadow:0 25px 80px rgba(0,0,0,0.6);
+  backdrop-filter:blur(14px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.6);
 }
 
-.task{
-  margin:16px 0;
-  text-align:left;
+/* tasks */
+.task {
+  margin:18px 0;
 }
 
-input{
+button {
+  padding:12px 20px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(135deg,#ffffff20,#ffffff10);
+  color:white;
+  cursor:pointer;
+  transition:0.25s;
+}
+
+button:hover {
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(255,255,255,0.12);
+}
+
+input {
   width:100%;
   padding:12px;
   border-radius:10px;
   border:1px solid rgba(255,255,255,0.1);
   background:rgba(255,255,255,0.05);
   color:white;
-}
-
-button{
-  margin-top:10px;
-  padding:12px 20px;
-  border:none;
-  border-radius:10px;
-  background:linear-gradient(135deg,#ffffff25,#ffffff10);
-  color:white;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-button:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 30px rgba(255,255,255,0.15);
+  margin-top:8px;
 }
 
 /* progress */
-.progress{
+.progress {
   height:6px;
   background:rgba(255,255,255,0.08);
   border-radius:999px;
@@ -99,37 +112,18 @@ button:hover{
   overflow:hidden;
 }
 
-.fill{
+.fill {
   height:100%;
   width:0%;
   background:linear-gradient(90deg,#ffffff20,#d4af37);
   transition:0.4s;
 }
 
-/* modal */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.7);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  pointer-events:none;
-  transition:0.3s;
-}
-
-.modal.show{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.modal-box{
-  background:#0b0b0b;
-  padding:30px;
-  border-radius:14px;
-  text-align:center;
-  box-shadow:0 20px 60px rgba(0,0,0,0.8);
+/* wallet section highlight */
+.wallet-section {
+  margin-top:24px;
+  padding-top:16px;
+  border-top:1px solid rgba(255,255,255,0.08);
 }
 
 </style>
@@ -138,25 +132,20 @@ button:hover{
 <body>
 
 <div class="hero">
-  <h1 id="typing"></h1>
+  <div class="ticket-bg"></div>
+  <h1>BlackTicket Access</h1>
   <div class="gold"></div>
-  <p>Complete tasks to request access</p>
+  <p>Complete tasks to request entry</p>
 </div>
 
 <div class="card">
 
 <div class="task">
   Follow on Twitter  
-  <br>
+  <br><br>
   <a href="https://x.com/blackticket_eth" target="_blank">
-    <button onclick="clickSound()">Open Twitter</button>
+    <button onclick="taskDone(30)">Open Twitter</button>
   </a>
-</div>
-
-<div class="task">
-  Paste wallet address
-  <input id="wallet">
-  <button onclick="submitWallet()">Submit</button>
 </div>
 
 <div class="task">
@@ -169,72 +158,42 @@ button:hover{
   <div class="fill" id="progressFill"></div>
 </div>
 
+<div class="wallet-section">
+  <h3>Final Step</h3>
+  <p>Submit wallet for review</p>
+
+  <input id="wallet" placeholder="0x...">
+  <button onclick="submitWallet()">Submit Wallet</button>
 </div>
 
-<div class="modal" id="modal">
-  <div class="modal-box">
-    <h2>Application received</h2>
-    <p>You will be reviewed shortly.</p>
-    <button onclick="closeModal()">Close</button>
-  </div>
 </div>
-
-<audio id="clickAudio">
-  <source src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3">
-</audio>
 
 <script>
 
-/* typing effect */
-const text="BlackTicket Access Portal";
-let i=0;
-function type(){
-  if(i<text.length){
-    document.getElementById("typing").innerHTML+=text.charAt(i);
-    i++;
-    setTimeout(type,40);
+let progress = 0;
+
+function updateProgress() {
+  document.getElementById("progressFill").style.width = progress + "%";
+}
+
+function taskDone(amount) {
+  progress += amount;
+  updateProgress();
+}
+
+function verifyComment() {
+  const val = document.getElementById("comment").value;
+  if(val){
+    taskDone(40);
   }
 }
-type();
 
-/* progress */
-let progress=0;
-function updateProgress(){
-  document.getElementById("progressFill").style.width=progress+"%";
-}
-
-/* click sound */
-function clickSound(){
-  document.getElementById("clickAudio").play();
-}
-
-/* wallet submit */
-function submitWallet(){
-  const wallet=document.getElementById("wallet").value;
+function submitWallet() {
+  const wallet = document.getElementById("wallet").value;
   if(wallet){
-    progress+=40;
-    updateProgress();
-    clickSound();
+    taskDone(30);
+    alert("Submission received. You will be reviewed.");
   }
-}
-
-/* comment verify */
-function verifyComment(){
-  const comment=document.getElementById("comment").value;
-  if(comment){
-    progress+=40;
-    updateProgress();
-    clickSound();
-    showModal();
-  }
-}
-
-function showModal(){
-  document.getElementById("modal").classList.add("show");
-}
-
-function closeModal(){
-  document.getElementById("modal").classList.remove("show");
 }
 
 </script>
