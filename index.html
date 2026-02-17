@@ -5,127 +5,131 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BlackTicket Access</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
 <style>
 
-body{
-margin:0;
-background:#000;
-color:#fff;
-font-family:'Inter',sans-serif;
+body {
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+  background: radial-gradient(circle at 30% 20%, #0b0b0b, #040404 70%);
+  color:#e5e7eb;
+  overflow-x:hidden;
 }
 
+/* particles */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size:40px 40px;
+  animation:moveParticles 60s linear infinite;
+  pointer-events:none;
+}
+
+@keyframes moveParticles{
+  from{transform:translateY(0)}
+  to{transform:translateY(-200px)}
+}
+
+/* hero */
 .hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-background:radial-gradient(circle at center,#0a0a0a 0%,#000 70%);
+  text-align:center;
+  padding:80px 20px 40px;
 }
 
-h1{
-font-family:'Playfair Display',serif;
-font-size:56px;
-margin:0;
+.hero h1{
+  font-size:42px;
+  font-weight:600;
 }
 
 .gold{
-background:linear-gradient(90deg,#d4af37,#ffd700);
--webkit-background-clip:text;
-color:transparent;
+  width:60px;
+  height:2px;
+  margin:14px auto;
+  background:linear-gradient(90deg,transparent,#d4af37,transparent);
 }
 
-.ticket{
-margin-top:30px;
-width:280px;
-border-radius:16px;
-box-shadow:0 0 50px rgba(212,175,55,0.5);
-animation:float 5s ease-in-out infinite;
-}
-
-@keyframes float{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-15px);}
-}
-
-.countdown{
-margin-top:20px;
-font-size:22px;
-color:#d4af37;
-}
-
-.section{
-padding:80px 20px;
-text-align:center;
-}
-
+/* card */
 .card{
-background:rgba(255,255,255,0.02);
-backdrop-filter:blur(10px);
-border:1px solid rgba(212,175,55,0.2);
-border-radius:16px;
-padding:40px;
-max-width:650px;
-margin:auto;
-box-shadow:0 0 40px rgba(212,175,55,0.1);
+  background:rgba(255,255,255,0.03);
+  backdrop-filter:blur(16px);
+  border-radius:18px;
+  padding:32px;
+  max-width:480px;
+  margin:30px auto;
+  box-shadow:0 25px 80px rgba(0,0,0,0.6);
 }
 
-.button{
-background:linear-gradient(90deg,#d4af37,#ffd700);
-color:#000;
-padding:14px 28px;
-border-radius:8px;
-text-decoration:none;
-font-weight:600;
-display:inline-block;
-margin:10px;
-cursor:pointer;
-border:none;
+.task{
+  margin:16px 0;
+  text-align:left;
 }
 
 input{
-width:80%;
-padding:14px;
-border-radius:8px;
-border:none;
-margin-top:10px;
-background:#111;
-color:#fff;
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.05);
+  color:white;
 }
 
+button{
+  margin-top:10px;
+  padding:12px 20px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(135deg,#ffffff25,#ffffff10);
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 30px rgba(255,255,255,0.15);
+}
+
+/* progress */
 .progress{
-margin-top:15px;
-color:#aaa;
+  height:6px;
+  background:rgba(255,255,255,0.08);
+  border-radius:999px;
+  margin-top:20px;
+  overflow:hidden;
 }
 
-footer{
-padding:40px;
-color:#777;
-text-align:center;
+.fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#ffffff20,#d4af37);
+  transition:0.4s;
 }
 
+/* modal */
 .modal{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.85);
-display:none;
-justify-content:center;
-align-items:center;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.7);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:0.3s;
 }
 
-.modal-content{
-background:#111;
-padding:40px;
-border-radius:16px;
-text-align:center;
-border:1px solid #333;
-box-shadow:0 0 30px rgba(212,175,55,0.3);
+.modal.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.modal-box{
+  background:#0b0b0b;
+  padding:30px;
+  border-radius:14px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,0.8);
 }
 
 </style>
@@ -134,121 +138,107 @@ box-shadow:0 0 30px rgba(212,175,55,0.3);
 <body>
 
 <div class="hero">
-
-<h1>BlackTicket <span class="gold">Access</span></h1>
-<p>Private entry protocol</p>
-
-<!-- REPLACE WITH YOUR IMAGE LINK -->
-<img class="ticket" src="https://i.imgur.com/w0wYxTx.jpeg">
-
-<div class="countdown" id="countdown"></div>
-
+  <h1 id="typing"></h1>
+  <div class="gold"></div>
+  <p>Complete tasks to request access</p>
 </div>
-
-<div class="section">
 
 <div class="card">
 
-<h2>Complete Tasks</h2>
+<div class="task">
+  Follow on Twitter  
+  <br>
+  <a href="https://x.com/blackticket_eth" target="_blank">
+    <button onclick="clickSound()">Open Twitter</button>
+  </a>
+</div>
 
-<a class="button" href="https://x.com/blackticket_eth" target="_blank" onclick="completeTask()">Follow Twitter</a>
+<div class="task">
+  Paste wallet address
+  <input id="wallet">
+  <button onclick="submitWallet()">Submit</button>
+</div>
 
-<a class="button" href="https://x.com/blackticket_eth" target="_blank" onclick="completeTask()">Retweet Announcement</a>
+<div class="task">
+  Paste comment link
+  <input id="comment">
+  <button onclick="verifyComment()">Verify Comment</button>
+</div>
 
-<h3>Comment on Tweet</h3>
-
-<input id="commentLink" placeholder="Paste comment link">
-
-<br>
-
-<button class="button" onclick="verifyComment()">Verify Comment</button>
-
-<p id="verifyStatus"></p>
-
-<h3>Submit Wallet</h3>
-
-<input id="wallet" placeholder="Paste wallet address">
-
-<br>
-
-<button class="button" onclick="submitWallet()">Submit</button>
-
-<div class="progress">Tasks completed: <span id="progress">0</span>/3</div>
-
+<div class="progress">
+  <div class="fill" id="progressFill"></div>
 </div>
 
 </div>
-
-<footer>
-BlackTicket Protocol ©
-</footer>
 
 <div class="modal" id="modal">
-<div class="modal-content">
-<h2 class="gold">Access Confirmed</h2>
-<p>You’re on the list</p>
+  <div class="modal-box">
+    <h2>Application received</h2>
+    <p>You will be reviewed shortly.</p>
+    <button onclick="closeModal()">Close</button>
+  </div>
 </div>
-</div>
+
+<audio id="clickAudio">
+  <source src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3">
+</audio>
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function(){
+/* typing effect */
+const text="BlackTicket Access Portal";
+let i=0;
+function type(){
+  if(i<text.length){
+    document.getElementById("typing").innerHTML+=text.charAt(i);
+    i++;
+    setTimeout(type,40);
+  }
+}
+type();
 
-let completed = 0;
-
+/* progress */
+let progress=0;
 function updateProgress(){
-document.getElementById("progress").innerText = completed;
+  document.getElementById("progressFill").style.width=progress+"%";
 }
 
-window.completeTask = function(){
-completed++;
-updateProgress();
+/* click sound */
+function clickSound(){
+  document.getElementById("clickAudio").play();
 }
 
-window.verifyComment = function(){
-const link = document.getElementById("commentLink").value;
-
-if(!link || link.length < 5){
-document.getElementById("verifyStatus").innerText = "Paste valid link";
-return;
+/* wallet submit */
+function submitWallet(){
+  const wallet=document.getElementById("wallet").value;
+  if(wallet){
+    progress+=40;
+    updateProgress();
+    clickSound();
+  }
 }
 
-document.getElementById("verifyStatus").innerText = "Verified ✅";
-completed++;
-updateProgress();
+/* comment verify */
+function verifyComment(){
+  const comment=document.getElementById("comment").value;
+  if(comment){
+    progress+=40;
+    updateProgress();
+    clickSound();
+    showModal();
+  }
 }
 
-window.submitWallet = function(){
-const wallet = document.getElementById("wallet").value;
-
-if(!wallet || wallet.length < 5){
-alert("Enter valid wallet");
-return;
+function showModal(){
+  document.getElementById("modal").classList.add("show");
 }
 
-document.getElementById("modal").style.display = "flex";
+function closeModal(){
+  document.getElementById("modal").classList.remove("show");
 }
-
-const launchDate = new Date();
-launchDate.setDate(launchDate.getDate() + 7);
-
-const countdown = document.getElementById("countdown");
-
-setInterval(()=>{
-const now = new Date();
-const diff = launchDate - now;
-
-const days = Math.floor(diff/(1000*60*60*24));
-const hours = Math.floor((diff/(1000*60*60))%24);
-const mins = Math.floor((diff/1000/60)%60);
-
-countdown.innerHTML = `Mint in ${days}d ${hours}h ${mins}m`;
-
-},1000);
-
-});
 
 </script>
 
 </body>
 </html>
+
