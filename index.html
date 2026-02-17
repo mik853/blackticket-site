@@ -5,144 +5,117 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BlackTicket Access</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
 
 body {
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-  background:#050505;
-  color:#e5e7eb;
+    margin:0;
+    font-family: 'Inter', sans-serif;
+    background:#070707;
+    color:#fff;
+    overflow-x:hidden;
 }
 
-/* HERO */
+/* PAGE WRAPPER */
 
-.hero {
-  padding:90px 20px 50px;
-  text-align:center;
-  position:relative;
+.page {
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+    padding:40px;
 }
 
-.hero h1 {
-  font-size:42px;
-  font-weight:600;
+/* TICKET */
+
+.ticket {
+    width:320px;
+    animation: float 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(255,215,0,0.2));
+    opacity:0;
+    transform: translateY(40px);
+    animation: reveal 1.5s ease forwards, float 4s ease-in-out infinite 1.5s;
 }
 
-.gold-line {
-  width:60px;
-  height:2px;
-  margin:14px auto;
-  background:linear-gradient(90deg,transparent,#d4af37,transparent);
+@keyframes reveal {
+    to { opacity:1; transform:translateY(0);}
 }
 
-/* CARD */
-
-.card {
-  background:rgba(255,255,255,0.03);
-  border-radius:16px;
-  padding:30px;
-  max-width:460px;
-  margin:20px auto 60px;
-  backdrop-filter:blur(12px);
-  box-shadow:0 20px 60px rgba(0,0,0,0.6);
+@keyframes float {
+    0%,100% { transform:translateY(0);}
+    50% { transform:translateY(-10px);}
 }
 
-/* TASK */
-
-.task {
-  margin:18px 0;
+h1 {
+    font-weight:400;
+    letter-spacing:2px;
+    margin-top:40px;
+    color:#e7c66b;
 }
 
 button {
-  padding:12px 20px;
-  border:none;
-  border-radius:10px;
-  background:linear-gradient(135deg,#ffffff20,#ffffff10);
-  color:white;
-  cursor:pointer;
-  transition:0.25s;
+    margin-top:30px;
+    padding:14px 28px;
+    border-radius:10px;
+    border:1px solid #e7c66b;
+    background:transparent;
+    color:#e7c66b;
+    cursor:pointer;
+    transition:.3s;
 }
 
 button:hover {
-  transform:translateY(-2px);
-  box-shadow:0 8px 20px rgba(255,255,255,0.12);
+    background:#e7c66b;
+    color:#000;
+}
+
+/* TASK PAGE */
+
+.card {
+    max-width:520px;
+    background:#111;
+    padding:40px;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,0.05);
+    box-shadow:0 0 40px rgba(0,0,0,0.5);
 }
 
 input {
-  width:100%;
-  padding:12px;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,0.1);
-  background:rgba(255,255,255,0.05);
-  color:white;
-  margin-top:8px;
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    margin-bottom:20px;
+    border-radius:8px;
+    border:1px solid #333;
+    background:#0b0b0b;
+    color:#fff;
 }
 
-/* PROGRESS */
-
-.progress {
-  height:6px;
-  background:rgba(255,255,255,0.08);
-  border-radius:999px;
-  margin-top:20px;
-  overflow:hidden;
+.task {
+    margin-bottom:20px;
+    text-align:left;
 }
 
-.fill {
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#ffffff20,#d4af37);
-  transition:0.4s;
-}
-
-/* WALLET SECTION */
-
-.wallet-section {
-  margin-top:26px;
-  padding-top:16px;
-  border-top:1px solid rgba(255,255,255,0.08);
-}
-
-/* LUXURY MODAL */
+/* MODAL */
 
 .modal {
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.65);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  pointer-events:none;
-  transition:0.25s ease;
-}
-
-.modal.show {
-  opacity:1;
-  pointer-events:auto;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.8);
+    display:none;
+    align-items:center;
+    justify-content:center;
 }
 
 .modal-box {
-  background:#0b0b0b;
-  padding:30px 36px;
-  border-radius:16px;
-  text-align:center;
-  border:1px solid rgba(212,175,55,0.25);
-  box-shadow:0 0 40px rgba(212,175,55,0.15),
-             0 20px 60px rgba(0,0,0,0.8);
-  animation:glowPulse 2.5s infinite alternate;
-}
-
-@keyframes glowPulse {
-  from { box-shadow:0 0 30px rgba(212,175,55,0.1) }
-  to { box-shadow:0 0 60px rgba(212,175,55,0.25) }
-}
-
-.modal-box h2 {
-  margin-bottom:8px;
-}
-
-.modal-box button {
-  margin-top:16px;
+    background:#111;
+    padding:40px;
+    border-radius:14px;
+    border:1px solid #e7c66b;
+    text-align:center;
 }
 
 </style>
@@ -150,82 +123,93 @@ input {
 
 <body>
 
-<div class="hero">
-  <h1>BlackTicket Access</h1>
-  <div class="gold-line"></div>
-  <p>Complete tasks to request entry</p>
+<!-- PAGE 1 -->
+
+<div class="page" id="page1">
+
+<img src="https://i.imgur.com/w0wYxTx.jpeg" class="ticket">
+
+<h1>Exclusive Access Invitation</h1>
+
+<button onclick="goNext()">Continue</button>
+
 </div>
+
+<!-- PAGE 2 -->
+
+<div class="page" id="page2" style="display:none">
 
 <div class="card">
 
-<div class="task">
-  Follow on Twitter  
-  <br><br>
-  <a href="https://x.com/blackticket_eth" target="_blank">
-    <button onclick="taskDone(30)">Open Twitter</button>
-  </a>
-</div>
+<h2 style="color:#e7c66b">Request Entry</h2>
 
 <div class="task">
-  Paste comment link
-  <input id="comment">
-  <button onclick="verifyComment()">Verify Comment</button>
+Follow on X  
+<br>
+<input placeholder="Paste profile link">
 </div>
 
-<div class="progress">
-  <div class="fill" id="progressFill"></div>
+<div class="task">
+Like + RT the announcement  
+<br>
+<input placeholder="Paste tweet link">
 </div>
 
-<div class="wallet-section">
-  <h3>Final Step</h3>
-  <p>Submit wallet for review</p>
+<div class="task">
+Comment on tweet  
+<br>
+<input placeholder="Paste comment link">
+</div>
 
-  <input id="wallet" placeholder="0x...">
-  <button onclick="submitWallet()">Submit Wallet</button>
+<div class="task">
+Join Discord  
+<br>
+<input placeholder="Paste username">
+</div>
+
+<hr style="margin:30px 0; border-color:#222">
+
+<h3>Submit Wallet</h3>
+
+<input id="wallet" placeholder="Enter wallet address">
+
+<button onclick="submitForm()">Submit Request</button>
+
 </div>
 
 </div>
 
-<!-- SUCCESS MODAL -->
+<!-- MODAL -->
 
-<div id="successModal" class="modal">
-  <div class="modal-box">
-    <h2>Submission successful</h2>
-    <p>Your entry has been received and is under review.</p>
-    <button onclick="closeModal()">Close</button>
-  </div>
+<div class="modal" id="modal">
+<div class="modal-box">
+<h2 style="color:#e7c66b">Submission Received</h2>
+<p>Your request is under review.</p>
+<button onclick="closeModal()">Close</button>
+</div>
 </div>
 
 <script>
 
-let progress = 0;
-
-function updateProgress() {
-  document.getElementById("progressFill").style.width = progress + "%";
+function goNext() {
+    document.getElementById("page1").style.display="none";
+    document.getElementById("page2").style.display="flex";
 }
 
-function taskDone(amount) {
-  progress += amount;
-  updateProgress();
-}
+function submitForm() {
 
-function verifyComment() {
-  const val = document.getElementById("comment").value;
-  if(val){
-    taskDone(40);
-  }
-}
+    const wallet = document.getElementById("wallet").value;
 
-function submitWallet() {
-  const wallet = document.getElementById("wallet").value;
-  if(wallet){
-    taskDone(30);
-    document.getElementById("successModal").classList.add("show");
-  }
+    if(wallet === "") {
+        alert("Please enter wallet");
+        return;
+    }
+
+    document.getElementById("modal").style.display="flex";
 }
 
 function closeModal() {
-  document.getElementById("successModal").classList.remove("show");
+    document.getElementById("modal").style.display="none";
 }
 
 </script>
