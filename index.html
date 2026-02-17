@@ -12,68 +12,42 @@ body {
   font-family:-apple-system,BlinkMacSystemFont,sans-serif;
   background:#050505;
   color:#e5e7eb;
-  overflow-x:hidden;
 }
 
-/* animated ticket glow background */
+/* HERO */
+
 .hero {
-  position:relative;
-  padding:100px 20px 60px;
+  padding:90px 20px 50px;
   text-align:center;
-  overflow:hidden;
-}
-
-.ticket-bg {
-  position:absolute;
-  width:600px;
-  height:280px;
-  background:linear-gradient(135deg,#0a0a0a,#111);
-  border-radius:16px;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%) rotate(-8deg);
-  box-shadow:0 0 120px rgba(212,175,55,0.15);
-  animation:float 6s ease-in-out infinite alternate;
-}
-
-.ticket-bg::after {
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:16px;
-  border:1px solid rgba(212,175,55,0.25);
-}
-
-@keyframes float {
-  from { transform:translate(-50%,-50%) rotate(-8deg) }
-  to { transform:translate(-50%,-48%) rotate(-6deg) }
+  position:relative;
 }
 
 .hero h1 {
-  position:relative;
   font-size:42px;
   font-weight:600;
 }
 
-.gold {
+.gold-line {
   width:60px;
   height:2px;
   margin:14px auto;
   background:linear-gradient(90deg,transparent,#d4af37,transparent);
 }
 
-/* card */
+/* CARD */
+
 .card {
   background:rgba(255,255,255,0.03);
   border-radius:16px;
-  padding:28px;
+  padding:30px;
   max-width:460px;
-  margin:30px auto;
-  backdrop-filter:blur(14px);
+  margin:20px auto 60px;
+  backdrop-filter:blur(12px);
   box-shadow:0 20px 60px rgba(0,0,0,0.6);
 }
 
-/* tasks */
+/* TASK */
+
 .task {
   margin:18px 0;
 }
@@ -103,7 +77,8 @@ input {
   margin-top:8px;
 }
 
-/* progress */
+/* PROGRESS */
+
 .progress {
   height:6px;
   background:rgba(255,255,255,0.08);
@@ -119,11 +94,55 @@ input {
   transition:0.4s;
 }
 
-/* wallet section highlight */
+/* WALLET SECTION */
+
 .wallet-section {
-  margin-top:24px;
+  margin-top:26px;
   padding-top:16px;
   border-top:1px solid rgba(255,255,255,0.08);
+}
+
+/* LUXURY MODAL */
+
+.modal {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.65);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:0.25s ease;
+}
+
+.modal.show {
+  opacity:1;
+  pointer-events:auto;
+}
+
+.modal-box {
+  background:#0b0b0b;
+  padding:30px 36px;
+  border-radius:16px;
+  text-align:center;
+  border:1px solid rgba(212,175,55,0.25);
+  box-shadow:0 0 40px rgba(212,175,55,0.15),
+             0 20px 60px rgba(0,0,0,0.8);
+  animation:glowPulse 2.5s infinite alternate;
+}
+
+@keyframes glowPulse {
+  from { box-shadow:0 0 30px rgba(212,175,55,0.1) }
+  to { box-shadow:0 0 60px rgba(212,175,55,0.25) }
+}
+
+.modal-box h2 {
+  margin-bottom:8px;
+}
+
+.modal-box button {
+  margin-top:16px;
 }
 
 </style>
@@ -132,9 +151,8 @@ input {
 <body>
 
 <div class="hero">
-  <div class="ticket-bg"></div>
   <h1>BlackTicket Access</h1>
-  <div class="gold"></div>
+  <div class="gold-line"></div>
   <p>Complete tasks to request entry</p>
 </div>
 
@@ -168,6 +186,16 @@ input {
 
 </div>
 
+<!-- SUCCESS MODAL -->
+
+<div id="successModal" class="modal">
+  <div class="modal-box">
+    <h2>Submission successful</h2>
+    <p>Your entry has been received and is under review.</p>
+    <button onclick="closeModal()">Close</button>
+  </div>
+</div>
+
 <script>
 
 let progress = 0;
@@ -192,12 +220,15 @@ function submitWallet() {
   const wallet = document.getElementById("wallet").value;
   if(wallet){
     taskDone(30);
-    alert("Submission received. You will be reviewed.");
+    document.getElementById("successModal").classList.add("show");
   }
+}
+
+function closeModal() {
+  document.getElementById("successModal").classList.remove("show");
 }
 
 </script>
 
 </body>
 </html>
-
