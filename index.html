@@ -2,73 +2,94 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>BlackTicket Entry</title>
+<title>BlackTicket</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #000;
-  color: #fff;
-  text-align: center;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background: radial-gradient(circle at center, #111 0%, #000 70%);
+  color: #eee;
+  overflow-x: hidden;
 }
 
-/* PAGE SECTIONS */
+/* PAGE */
 
 .page {
   display: none;
   min-height: 100vh;
-  padding: 40px 20px;
+  padding: 60px 20px;
+  text-align: center;
 }
 
 .active {
   display: block;
 }
 
-/* TICKET GLOW */
+/* HEADINGS */
+
+h1 {
+  font-size: 40px;
+  color: gold;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  opacity: 0.7;
+  max-width: 500px;
+  margin: 0 auto 40px;
+  font-size: 15px;
+}
+
+/* TICKET */
 
 .ticket {
   max-width: 420px;
-  margin: 40px auto;
-  border-radius: 16px;
-  box-shadow: 0 0 40px rgba(255,215,0,0.25);
-  animation: glow 3s ease-in-out infinite alternate;
+  border-radius: 18px;
+  margin: 30px auto;
+  box-shadow: 0 0 60px rgba(255,215,0,0.25);
+  animation: glow 4s ease-in-out infinite alternate;
 }
 
 @keyframes glow {
-  from { box-shadow: 0 0 20px rgba(255,215,0,0.2); }
-  to { box-shadow: 0 0 60px rgba(255,215,0,0.5); }
+  from { box-shadow: 0 0 30px rgba(255,215,0,0.2); }
+  to { box-shadow: 0 0 80px rgba(255,215,0,0.5); }
 }
 
 /* BUTTONS */
 
-button, .btn {
-  background: gold;
+.btn {
+  background: linear-gradient(135deg, gold, #c9a200);
   color: black;
   border: none;
-  padding: 14px 22px;
+  padding: 14px 24px;
   margin: 10px;
+  border-radius: 10px;
   font-weight: bold;
-  border-radius: 8px;
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
+  transition: 0.25s;
 }
 
-button:hover, .btn:hover {
-  opacity: 0.9;
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255,215,0,0.25);
 }
 
 /* INPUT */
 
 input {
-  padding: 12px;
-  width: 280px;
-  border-radius: 6px;
-  border: none;
-  margin-top: 10px;
+  padding: 14px;
+  width: 300px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #111;
+  color: white;
+  margin-top: 20px;
 }
 
 /* POPUP */
@@ -79,18 +100,23 @@ input {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.85);
+  background: rgba(0,0,0,0.9);
   display: none;
   align-items: center;
   justify-content: center;
 }
 
 .popup-box {
-  background: #111;
+  background: #0c0c0c;
   border: 1px solid gold;
-  padding: 30px;
-  border-radius: 12px;
-  max-width: 320px;
+  padding: 40px;
+  border-radius: 14px;
+  max-width: 340px;
+  text-align: center;
+}
+
+.popup-box h3 {
+  color: gold;
 }
 
 </style>
@@ -102,11 +128,18 @@ input {
 
 <div id="page1" class="page active">
 
-  <h1>BlackTicket</h1>
+<h1>BLACKTICKET</h1>
 
-  <img src="https://i.imgur.com/w0wYxTx.jpeg" class="ticket">
+<p class="subtitle">
+A private access experience designed for early participants.  
+Entry is limited. Complete the steps to request access.
+</p>
 
-  <button onclick="goToPage2()">Continue</button>
+<img src="YOUR_IMGUR_LINK" class="ticket">
+
+<br>
+
+<button class="btn" onclick="goToPage2()">Continue</button>
 
 </div>
 
@@ -114,33 +147,46 @@ input {
 
 <div id="page2" class="page">
 
-  <h2>Request Entry</h2>
+<h1>Request Entry</h1>
 
-  <p>Complete the steps below</p>
+<p class="subtitle">
+Follow the steps below to verify participation.  
+Submission does not guarantee access.
+</p>
 
-  <div>
-    <a href="https://x.com/blackticket_eth" target="_blank" class="btn">Go to Twitter</a>
-    <a href="https://x.com/blackticket_eth" target="_blank" class="btn">Go to Tweet</a>
-  </div>
+<div>
+<a href="YOUR_TWITTER_LINK" target="_blank" class="btn">Open Twitter</a>
+<a href="YOUR_TWEET_LINK" target="_blank" class="btn">Open Tweet</a>
+</div>
 
-  <br>
+<br>
 
-  <input type="text" placeholder="Paste wallet address" id="wallet">
+<input id="wallet" placeholder="Paste wallet address">
 
-  <br>
+<br>
 
-  <button onclick="submitWallet()">Submit Wallet</button>
+<button class="btn" onclick="submitWallet()">Submit Request</button>
 
 </div>
 
 <!-- POPUP -->
 
 <div id="popup" class="popup">
-  <div class="popup-box">
-    <h3>Submission Received</h3>
-    <p>Wallet submitted successfully. Check back later.</p>
-    <button onclick="closePopup()">Close</button>
-  </div>
+<div class="popup-box">
+
+<h3>Submission Received</h3>
+
+<p>
+Your request has been recorded.  
+Review will happen periodically.  
+Check back for updates.
+</p>
+
+<br>
+
+<button class="btn" onclick="closePopup()">Close</button>
+
+</div>
 </div>
 
 <script>
@@ -148,6 +194,7 @@ input {
 function goToPage2() {
   document.getElementById("page1").classList.remove("active");
   document.getElementById("page2").classList.add("active");
+  window.scrollTo(0,0);
 }
 
 function submitWallet() {
