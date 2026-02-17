@@ -2,120 +2,95 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>BlackTicket Entry</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BlackTicket Access</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 
 body {
-    margin:0;
-    font-family: 'Inter', sans-serif;
-    background:#070707;
-    color:#fff;
-    overflow-x:hidden;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+  text-align: center;
 }
 
-/* PAGE WRAPPER */
+/* PAGE SECTIONS */
 
 .page {
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    text-align:center;
-    padding:40px;
+  display: none;
+  min-height: 100vh;
+  padding: 40px 20px;
 }
 
-/* TICKET */
+.active {
+  display: block;
+}
+
+/* TICKET GLOW */
 
 .ticket {
-    width:320px;
-    animation: float 4s ease-in-out infinite;
-    filter: drop-shadow(0 0 30px rgba(255,215,0,0.2));
-    opacity:0;
-    transform: translateY(40px);
-    animation: reveal 1.5s ease forwards, float 4s ease-in-out infinite 1.5s;
+  max-width: 420px;
+  margin: 40px auto;
+  border-radius: 16px;
+  box-shadow: 0 0 40px rgba(255,215,0,0.25);
+  animation: glow 3s ease-in-out infinite alternate;
 }
 
-@keyframes reveal {
-    to { opacity:1; transform:translateY(0);}
+@keyframes glow {
+  from { box-shadow: 0 0 20px rgba(255,215,0,0.2); }
+  to { box-shadow: 0 0 60px rgba(255,215,0,0.5); }
 }
 
-@keyframes float {
-    0%,100% { transform:translateY(0);}
-    50% { transform:translateY(-10px);}
+/* BUTTONS */
+
+button, .btn {
+  background: gold;
+  color: black;
+  border: none;
+  padding: 14px 22px;
+  margin: 10px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
 }
 
-h1 {
-    font-weight:400;
-    letter-spacing:2px;
-    margin-top:40px;
-    color:#e7c66b;
+button:hover, .btn:hover {
+  opacity: 0.9;
 }
 
-button {
-    margin-top:30px;
-    padding:14px 28px;
-    border-radius:10px;
-    border:1px solid #e7c66b;
-    background:transparent;
-    color:#e7c66b;
-    cursor:pointer;
-    transition:.3s;
-}
-
-button:hover {
-    background:#e7c66b;
-    color:#000;
-}
-
-/* TASK PAGE */
-
-.card {
-    max-width:520px;
-    background:#111;
-    padding:40px;
-    border-radius:16px;
-    border:1px solid rgba(255,255,255,0.05);
-    box-shadow:0 0 40px rgba(0,0,0,0.5);
-}
+/* INPUT */
 
 input {
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    margin-bottom:20px;
-    border-radius:8px;
-    border:1px solid #333;
-    background:#0b0b0b;
-    color:#fff;
+  padding: 12px;
+  width: 280px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 10px;
 }
 
-.task {
-    margin-bottom:20px;
-    text-align:left;
+/* POPUP */
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
 }
 
-/* MODAL */
-
-.modal {
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.8);
-    display:none;
-    align-items:center;
-    justify-content:center;
-}
-
-.modal-box {
-    background:#111;
-    padding:40px;
-    border-radius:14px;
-    border:1px solid #e7c66b;
-    text-align:center;
+.popup-box {
+  background: #111;
+  border: 1px solid gold;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 320px;
 }
 
 </style>
@@ -125,94 +100,74 @@ input {
 
 <!-- PAGE 1 -->
 
-<div class="page" id="page1">
+<div id="page1" class="page active">
 
-<img src="https://i.imgur.com/w0wYxTx.jpeg" class="ticket">
+  <h1>BlackTicket</h1>
 
-<h1>Exclusive Access Invitation</h1>
+  <img src="https://i.imgur.com/w0wYxTx.jpeg" class="ticket">
 
-<button onclick="goNext()">Continue</button>
+  <button onclick="goToPage2()">Continue</button>
 
 </div>
 
 <!-- PAGE 2 -->
 
-<div class="page" id="page2" style="display:none">
+<div id="page2" class="page">
 
-<div class="card">
+  <h2>Request Entry</h2>
 
-<h2 style="color:#e7c66b">Request Entry</h2>
+  <p>Complete the steps below</p>
 
-<div class="task">
-Follow on X  
-<br>
-<input placeholder="Paste profile link">
-</div>
+  <div>
+    <a href="https://x.com/blackticket_eth" target="_blank" class="btn">Go to Twitter</a>
+    <a href="https://x.com/blackticket_eth" target="_blank" class="btn">Go to Tweet</a>
+  </div>
 
-<div class="task">
-Like + RT the announcement  
-<br>
-<input placeholder="Paste tweet link">
-</div>
+  <br>
 
-<div class="task">
-Comment on tweet  
-<br>
-<input placeholder="Paste comment link">
-</div>
+  <input type="text" placeholder="Paste wallet address" id="wallet">
 
-<div class="task">
-Join Discord  
-<br>
-<input placeholder="Paste username">
-</div>
+  <br>
 
-<hr style="margin:30px 0; border-color:#222">
-
-<h3>Submit Wallet</h3>
-
-<input id="wallet" placeholder="Enter wallet address">
-
-<button onclick="submitForm()">Submit Request</button>
+  <button onclick="submitWallet()">Submit Wallet</button>
 
 </div>
 
-</div>
+<!-- POPUP -->
 
-<!-- MODAL -->
-
-<div class="modal" id="modal">
-<div class="modal-box">
-<h2 style="color:#e7c66b">Submission Received</h2>
-<p>Your request is under review.</p>
-<button onclick="closeModal()">Close</button>
-</div>
+<div id="popup" class="popup">
+  <div class="popup-box">
+    <h3>Submission Received</h3>
+    <p>Wallet submitted successfully. Check back later.</p>
+    <button onclick="closePopup()">Close</button>
+  </div>
 </div>
 
 <script>
 
-function goNext() {
-    document.getElementById("page1").style.display="none";
-    document.getElementById("page2").style.display="flex";
+function goToPage2() {
+  document.getElementById("page1").classList.remove("active");
+  document.getElementById("page2").classList.add("active");
 }
 
-function submitForm() {
+function submitWallet() {
 
-    const wallet = document.getElementById("wallet").value;
+  const wallet = document.getElementById("wallet").value;
 
-    if(wallet === "") {
-        alert("Please enter wallet");
-        return;
-    }
+  if(wallet === "") {
+    alert("Please enter wallet address");
+    return;
+  }
 
-    document.getElementById("modal").style.display="flex";
+  document.getElementById("popup").style.display = "flex";
 }
 
-function closeModal() {
-    document.getElementById("modal").style.display="none";
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
 }
 
 </script>
 
 </body>
 </html>
+
