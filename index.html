@@ -204,18 +204,26 @@ function submitForm() {
         return;
     }
 
-    fetch("https://script.google.com/macros/s/AKfycbzoFnRG0wAJj_ulPY7emMLX1hlcvMcBj8GBiuUQPDxt-1RrNbbcHtziOTlyGzqQncEFdg/exec", {
+    fetch("YOUR_WEB_APP_URL", {
         method: "POST",
-        body: JSON.stringify({
-            wallet: wallet
-        })
+        body: JSON.stringify({ wallet: wallet }),
+        headers: {
+            "Content-Type": "application/json"
+        }
     })
     .then(res => res.json())
     .then(data => {
+
+        if(data.status === "duplicate") {
+            alert("Wallet already submitted");
+            return;
+        }
+
         document.getElementById("modal").style.display="flex";
+
     })
     .catch(err => {
-        alert("Error submitting wallet");
+        alert("Error submitting");
     });
 
 }
