@@ -2,121 +2,112 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>BlackTicket</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BlackTicket Access</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 
 body {
-  margin: 0;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  background: radial-gradient(circle at center, #111 0%, #000 70%);
-  color: #eee;
-  overflow-x: hidden;
+    margin:0;
+    font-family: 'Inter', sans-serif;
+    background:#070707;
+    color:#fff;
+    overflow-x:hidden;
 }
-
-/* PAGE */
 
 .page {
-  display: none;
-  min-height: 100vh;
-  padding: 60px 20px;
-  text-align: center;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+    padding:40px;
 }
-
-.active {
-  display: block;
-}
-
-/* HEADINGS */
-
-h1 {
-  font-size: 40px;
-  color: gold;
-  letter-spacing: 2px;
-  margin-bottom: 10px;
-}
-
-.subtitle {
-  opacity: 0.7;
-  max-width: 500px;
-  margin: 0 auto 40px;
-  font-size: 15px;
-}
-
-/* TICKET */
 
 .ticket {
-  max-width: 420px;
-  border-radius: 18px;
-  margin: 30px auto;
-  box-shadow: 0 0 60px rgba(255,215,0,0.25);
-  animation: glow 4s ease-in-out infinite alternate;
+    width:320px;
+    animation: float 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(255,215,0,0.2));
+    opacity:0;
+    transform: translateY(40px);
+    animation: reveal 1.5s ease forwards, float 4s ease-in-out infinite 1.5s;
 }
 
-@keyframes glow {
-  from { box-shadow: 0 0 30px rgba(255,215,0,0.2); }
-  to { box-shadow: 0 0 80px rgba(255,215,0,0.5); }
+@keyframes reveal {
+    to { opacity:1; transform:translateY(0);}
 }
 
-/* BUTTONS */
-
-.btn {
-  background: linear-gradient(135deg, gold, #c9a200);
-  color: black;
-  border: none;
-  padding: 14px 24px;
-  margin: 10px;
-  border-radius: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: 0.25s;
+@keyframes float {
+    0%,100% { transform:translateY(0);}
+    50% { transform:translateY(-10px);}
 }
 
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(255,215,0,0.25);
+h1 {
+    font-weight:400;
+    letter-spacing:2px;
+    margin-top:40px;
+    color:#e7c66b;
 }
 
-/* INPUT */
+button {
+    margin-top:20px;
+    padding:14px 28px;
+    border-radius:10px;
+    border:1px solid #e7c66b;
+    background:transparent;
+    color:#e7c66b;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover {
+    background:#e7c66b;
+    color:#000;
+}
+
+.card {
+    max-width:520px;
+    background:#111;
+    padding:40px;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,0.05);
+    box-shadow:0 0 40px rgba(0,0,0,0.5);
+}
 
 input {
-  padding: 14px;
-  width: 300px;
-  border-radius: 8px;
-  border: 1px solid #333;
-  background: #111;
-  color: white;
-  margin-top: 20px;
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    margin-bottom:20px;
+    border-radius:8px;
+    border:1px solid #333;
+    background:#0b0b0b;
+    color:#fff;
 }
 
-/* POPUP */
-
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.9);
-  display: none;
-  align-items: center;
-  justify-content: center;
+.task {
+    margin-bottom:20px;
+    text-align:left;
 }
 
-.popup-box {
-  background: #0c0c0c;
-  border: 1px solid gold;
-  padding: 40px;
-  border-radius: 14px;
-  max-width: 340px;
-  text-align: center;
+.modal {
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.8);
+    display:none;
+    align-items:center;
+    justify-content:center;
 }
 
-.popup-box h3 {
-  color: gold;
+.modal-box {
+    background:#111;
+    padding:40px;
+    border-radius:14px;
+    border:1px solid #e7c66b;
+    text-align:center;
 }
 
 </style>
@@ -126,91 +117,98 @@ input {
 
 <!-- PAGE 1 -->
 
-<div id="page1" class="page active">
+<div class="page" id="page1">
 
-<h1>BLACKTICKET</h1>
+<img src="https://i.imgur.com/w0wYxTx.jpeg" class="ticket">
 
-<p class="subtitle">
-A private access experience designed for early participants.  
-Entry is limited. Complete the steps to request access.
-</p>
+<h1>Exclusive Access Invitation</h1>
 
-<img src="YOUR_IMGUR_LINK" class="ticket">
-
-<br>
-
-<button class="btn" onclick="goToPage2()">Continue</button>
+<button onclick="goNext()">Continue</button>
 
 </div>
 
 <!-- PAGE 2 -->
 
-<div id="page2" class="page">
+<div class="page" id="page2" style="display:none">
 
-<h1>Request Entry</h1>
+<div class="card">
 
-<p class="subtitle">
-Follow the steps below to verify participation.  
-Submission does not guarantee access.
-</p>
+<h2 style="color:#e7c66b">Request Entry</h2>
 
-<div>
-<a href="YOUR_TWITTER_LINK" target="_blank" class="btn">Open Twitter</a>
-<a href="YOUR_TWEET_LINK" target="_blank" class="btn">Open Tweet</a>
+<!-- NEW BUTTONS -->
+
+<button onclick="window.open('YOUR_TWITTER_LINK','_blank')">Open Twitter</button>
+<button onclick="window.open('YOUR_PINNED_TWEET_LINK','_blank')">View Pinned Tweet</button>
+<button id="verifyBtn" onclick="verifyTweet()">Verify Tweet</button>
+
+<div class="task">
+Follow on X  
+<br>
+<input placeholder="Paste profile link">
 </div>
 
+<div class="task">
+Like + RT the announcement  
 <br>
+<input placeholder="Paste tweet link">
+</div>
 
-<input id="wallet" placeholder="Paste wallet address">
-
+<div class="task">
+Comment on tweet  
 <br>
+<input placeholder="Paste comment link">
+</div>
 
-<button class="btn" onclick="submitWallet()">Submit Request</button>
+<hr style="margin:30px 0; border-color:#222">
+
+<h3>Submit Wallet</h3>
+
+<input id="wallet" placeholder="Enter wallet address">
+
+<button onclick="submitForm()">Submit Request</button>
 
 </div>
 
-<!-- POPUP -->
+</div>
 
-<div id="popup" class="popup">
-<div class="popup-box">
+<!-- MODAL -->
 
-<h3>Submission Received</h3>
-
-<p>
-Your request has been recorded.  
-Review will happen periodically.  
-Check back for updates.
-</p>
-
-<br>
-
-<button class="btn" onclick="closePopup()">Close</button>
-
+<div class="modal" id="modal">
+<div class="modal-box">
+<h2 style="color:#e7c66b">Submission Successful</h2>
+<p>Your request has been received.</p>
+<button onclick="closeModal()">Close</button>
 </div>
 </div>
 
 <script>
 
-function goToPage2() {
-  document.getElementById("page1").classList.remove("active");
-  document.getElementById("page2").classList.add("active");
-  window.scrollTo(0,0);
+function goNext() {
+    document.getElementById("page1").style.display="none";
+    document.getElementById("page2").style.display="flex";
 }
 
-function submitWallet() {
-
-  const wallet = document.getElementById("wallet").value;
-
-  if(wallet === "") {
-    alert("Please enter wallet address");
-    return;
-  }
-
-  document.getElementById("popup").style.display = "flex";
+function verifyTweet() {
+    const btn = document.getElementById("verifyBtn");
+    btn.innerText = "Tweet Verified ✓";
+    btn.style.background = "#e7c66b";
+    btn.style.color = "#000";
 }
 
-function closePopup() {
-  document.getElementById("popup").style.display = "none";
+function submitForm() {
+
+    const wallet = document.getElementById("wallet").value;
+
+    if(wallet === "") {
+        alert("Please enter wallet");
+        return;
+    }
+
+    document.getElementById("modal").style.display="flex";
+}
+
+function closeModal() {
+    document.getElementById("modal").style.display="none";
 }
 
 </script>
